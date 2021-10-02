@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Controller {
+public class UserInfoController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UserInfoController.class);
 
     @GetMapping("/api/private")
     public Map<String, Object> privateResource(@AuthenticationPrincipal Jwt jwt) {

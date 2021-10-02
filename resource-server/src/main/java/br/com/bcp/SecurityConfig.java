@@ -15,8 +15,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
 
-    http
+    http.cors().and()
       .authorizeRequests()
+        .antMatchers(HttpMethod.GET, "/api/foos/**")
+            .hasAuthority("SCOPE_read")
+        .antMatchers(HttpMethod.PUT, "/api/foos/**")
+            .hasAuthority("SCOPE_write")
         .antMatchers(HttpMethod.GET, "/actuator/**")
             .hasRole("actuadoradmin")
         .antMatchers(HttpMethod.GET, "/api/public/**")
