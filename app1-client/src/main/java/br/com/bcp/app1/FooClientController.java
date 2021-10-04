@@ -13,8 +13,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Controller
 public class FooClientController {
 
-    @Value("${resourceserver.api.url}")
-    private String fooApiUrl;
+    @Value("${resourceserver.api.url.foo}")
+    private String apiUrl;
 
     @Autowired
     private WebClient webClient;
@@ -22,7 +22,7 @@ public class FooClientController {
     @GetMapping("/foos")
     public String getFoos(Model model) {
         List<FooModel> foos = this.webClient.get()
-                .uri(fooApiUrl)
+                .uri(apiUrl)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<FooModel>>() {})
                 .block();

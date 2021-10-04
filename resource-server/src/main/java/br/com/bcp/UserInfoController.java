@@ -4,6 +4,10 @@ import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,9 +32,17 @@ public class UserInfoController {
         return jwt.getClaims();
     }
 
-    @GetMapping("/user/info")
-    public Map<String, Object> getUserInfo(@AuthenticationPrincipal Jwt principal) {
+    @GetMapping("/user/name")
+    public Map<String, Object> getUserName(@AuthenticationPrincipal Jwt principal) {
         return Collections.singletonMap("user_name", principal.getClaimAsString("preferred_username"));
+    }
+
+    @GetMapping("/user/info")
+    public String getUserInfo(@AuthenticationPrincipal Jwt jwt) throws JsonProcessingException {
+        Map<String, Object> claims = jwt.getClaims();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(claims);
     }
 
     @GetMapping("/api/public")

@@ -27,7 +27,9 @@ server:
 
 resourceserver:
   api:
-    url: http://localhost:9091/sso-resource-server/api/foos/
+    url:
+      foo: http://localhost:9091/sso-resource-server/api/foos/
+      userinfo: http://localhost:9091/sso-resource-server/user/info
               
 logging: 
   level: 
