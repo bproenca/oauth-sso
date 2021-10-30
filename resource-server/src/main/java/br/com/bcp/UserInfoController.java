@@ -39,6 +39,7 @@ public class UserInfoController {
 
     @GetMapping("/user/info")
     public String getUserInfo(@AuthenticationPrincipal Jwt jwt) throws JsonProcessingException {
+        LOG.info("\n***** JWT Token: {}\n", jwt.getTokenValue());
         Map<String, Object> claims = jwt.getClaims();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
