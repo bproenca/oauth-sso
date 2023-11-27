@@ -3,17 +3,18 @@ spring:
     oauth2:
       client:
         registration:
-          custom:
+          keycloak:
             client-id: sso-client-1
-            client-secret: 813a9cb2-6e27-4cc4-898d-147cb99bf025
-            scope: read,write
+            client-secret: g2nFKRacSGONedOoL7HUT6Cgc3cza84a
+            scope: read,write,openid
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8081/ui-one/login/oauth2/code/custom
         provider:
-          custom:
-            authorization-uri: http://localhost:8080/auth/realms/bcp/protocol/openid-connect/auth
-            token-uri: http://localhost:8080/auth/realms/bcp/protocol/openid-connect/token
-            user-info-uri: http://localhost:8080/auth/realms/bcp/protocol/openid-connect/userinfo
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/bcp
+            authorization-uri: http://localhost:8080/realms/bcp/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/realms/bcp/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/realms/bcp/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
   thymeleaf:
     cache: false
